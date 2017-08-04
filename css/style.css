@@ -1,0 +1,219 @@
+::selection {
+  background: rgb(230,230,230);
+}
+
+body {
+  position: relative;
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: rgb(230,230,230);
+}
+
+header {
+  position: absolute;
+  top: 18px;
+  left: 14px;
+  width: 100%;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  padding: 7px;
+}
+
+.map {
+  z-index: 0;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: italic;
+  color: rgb(40,40,94);
+}
+
+h2 {
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(40,40,94);
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(100,100,154);
+}
+
+p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgb(80,80,80);
+}
+
+a {
+  font-style: italic;
+  color: rgb(100,100,154);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(100,100,154);
+  cursor: pointer;
+}
+
+a:hover {
+  color: rgb(40,40,94);
+  transition: .2s;
+}
+
+.close-container {
+  width: 100%;
+}
+
+#close-infobox {
+  display: inline-block;
+  width: 100%;
+  font-size: 24px;
+  font-style: normal;
+  text-align: right;
+  border-bottom: none;
+  color: rgb(150,150,150);
+}
+
+ul {
+  padding: 0;
+  margin-left: 18px;
+  color: rgb(80,80,80);
+}
+
+li {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+ul.icon_and_h1 {
+  display: block;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+ul.icon_and_h1 li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 8px 0 0;
+}
+
+.attention_icon {
+  display: block;
+  width: 25px;
+  height: auto;
+}
+
+header h1 span,
+header h3 span {
+   background: rgb(245,245,245);
+   padding: 7px;
+   margin-top: 5px;
+}
+
+header p {
+  margin-top: 10px;
+}
+
+header p span {
+   color: rgb(245,245,245);
+   background: rgb(255,126,0);
+   padding: 7px;
+}
+
+header p span:hover {
+   background: rgb(235,85,0);
+   transition: .2s;
+   cursor: pointer;
+}
+
+/* infobox basic styles */
+article.infobox {
+  position: absolute;
+  display: none;
+  right: 0;
+  width: 25vw;
+  min-height: 100vh;
+  height: auto;
+  padding: 30px;
+  background: rgb(245,245,245);
+  z-index: 1;
+}
+
+.infobox p:first-of-type {
+  margin-bottom: 25px;
+  font-size: 17px;
+  font-style: italic;
+  color: rgb(100,100,154);
+}
+
+.infobox-fullscreen {
+  position: absolute;
+  display: none;
+  min-height: 100vh;
+  height: 100%;
+  padding: 40px 12% 0;
+  background: rgb(245,245,245);
+  z-index: 1;
+}
+
+.intro-centered {
+  padding: 30px 100px 0;
+  margin: 0 auto 30px;
+}
+
+.intro-centered p {
+  font-size: 17px;
+  font-style: italic;
+  text-align: center;
+  color: rgb(100,100,154);
+}
+
+.intro-centered h1 {
+  text-align: center;
+}
+
+.one_third_column:first {
+  margin-left: 0;
+}
+
+.one_third_column {
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 30%;
+  margin-left: 3%;
+}
+
+p.outro-centered {
+  position: block;
+  font-style: italic;
+  text-align: center;
+  color: rgb(100,100,154);
+  padding-top: 18px;
+}
+
+#strom polygon:hover,
+#wasser polygon:hover,
+#nahrung polygon:hover,
+#verkehr polygon:hover,
+#binnenmigration polygon:hover,
+#txl polygon:hover {
+  fill: rgb(235,85,0);
+  transition: .2s;
+}
+
+g#strom:hover,
+g#wasser:hover,
+g#nahrung:hover,
+g#verkehr:hover,
+g#binnenmigration:hover,
+g#txl:hover {
+  cursor: pointer;
+}

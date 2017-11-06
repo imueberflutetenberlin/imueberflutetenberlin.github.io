@@ -1,0 +1,25 @@
+footer {
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  color: $primaryColor;
+
+  .contact {
+    padding: 3rem 0;
+    color: $baseColor;
+  }
+
+  .license {
+    padding: 3rem 0;
+    color: $primaryColor;
+    background-color: lighten($primaryColor, 60%);
+
+    a {
+      border-bottom: $borderBottom;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

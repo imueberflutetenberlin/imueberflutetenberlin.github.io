@@ -1,0 +1,150 @@
+---
+layout: default
+title: Karte
+permalink: "/map/"
+---
+
+{% include header.html navclass='nav-map' %}
+
+<!-- Basic div for map -->
+<div id="map"></div>
+
+<!-- Include geoJSON data -->
+<script src="{{site.baseurl}}/data/berlin_altitudes_-8_-6.js"></script>
+<script src="{{site.baseurl}}/data/berlin_altitudes_-6_-4.js"></script>
+<script src="{{site.baseurl}}/data/berlin_altitudes_-4_0.js"></script>
+
+<!-- Map script -->
+<script type="text/javascript">
+
+  // Initialise map
+  var map = L.map('map', {zoomControl: false}).setView([52.520007, 13.404953999999975], 12);
+
+  // Initialise zoom controls
+  L.control.zoom({position:'bottomleft'}).addTo(map);
+
+  // Fetch area tiles
+  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+    maxZoom: 18, attribution: '&copy; <a href="https://carto.com/attribution">CARTO</a>'
+  }).addTo(map);
+
+  /* Overlays of flooded areas
+  ------------------------------------------------------------------------------------ */
+  // Styles
+  var floodedStyle01 = {
+    "color": "rgb(100, 100, 154)",
+    "strokeWidth": 1,
+    "opacity": 0.8,
+    "fillOpacity": 0.8
+  };
+
+  var floodedStyle03 = {
+    "color": "rgb(40, 40, 94)",
+    "strokeWidth": 1,
+    "opacity": 0.8,
+    "fillOpacity": 0.8
+  };
+
+  var floodedStyle04 = {
+    "color": "rgb(20, 20, 47)",
+    "strokeWidth": 1,
+    "opacity": 0.8,
+    "fillOpacity": 0.8
+  };
+
+  // Add overlays
+  var test01 = L.geoJSON(berlinAltitudes01, {
+    style: floodedStyle01
+  }).addTo(map);
+
+  var test03 = L.geoJSON(berlinAltitudes03, {
+    style: floodedStyle03
+  }).addTo(map);
+
+  var test04 = L.geoJSON(berlinAltitudes04, {
+    style: floodedStyle04
+  }).addTo(map);
+
+  /* Popups
+  ------------------------------------------------------------------------------------ */
+  // Specify icon
+  var attentionIcon = L.icon({
+      iconUrl: '{{site.baseurl}}/img/attention_icon.svg',
+      iconSize:     [32, 32], // size of the icon
+      popupAnchor:  [0, -20] // point from which the popup should open relative to the iconAnchor
+      });
+
+  // Specify popup options
+  var popupOptions = {
+      'maxWidth': '450',
+      'className' : 'custom-popup'
+      };
+
+  // Texts for popups
+  var contentVerkehr = "<h2>Die Verkehrsinfrastruktur</h2>"
+                      + "<p>Fluten trennen: Stadt von Vorstadt, Senke von Anhöhe und Hilfsleistungen von Hilfsbedürftigen. Sind Straßenzüge, U-Bahn-Tunnel und ähnliches überschwemmt, so werden Wege verlängert und kompliziert. Im Katastrophenfall ist dies potentiell entscheidend über Leben und Tod.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p>Die Berliner Geologie ist geprägt durch das Berliner Urstromtal, das für die tiefliegenden Gebiete in Ost-West-Richtung verantwortlich ist. So würde die Stadt bei einer Flutkatastrophe grob in zwei Teile getrennt - den Norden und den Süden. Brücken über der Spree würden teilweise untergehen und die Verbindung von Nord und Süd würde deutlich kompliziert. Entlegene Außengebiete wären gänzlich überflutet und über Land nicht zugänglich.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>2010 überschwemmte eine Flut große Gebiete im Nordwesten Pakistans. Einige Orte waren daraufhin nur durch <a href='http://www.zeit.de/gesellschaft/zeitgeschehen/2010-08/pakistan-flut-infrastruktur' target='_blank'> Geröllstraßen oder gar Hubschrauber</a> erreichbar. Auch Hilfsleistungen und medizinische Versorgung trafen nur verzögert ein und verschlimmerten die Situation so.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Schönwalder Allee</p></aside>";
+
+  var contentBinnenmigration = "<h2>Die Binnenmigration</h2>"
+                      + "<p>Die durch Binnenmigration verursachte Verschiebung von sozialen Strukturen schlägt sich in Konflikten zwischen alten und neuen Ansässigen nieder. Insbesondere der Anspruch an Land und Wohnraum ist hier ein entscheidender Streitpunkt.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p>Die tiefliegenden – und besonders bevölkerungsreichen – Bezirke Mitte und Neukölln lägen bei Sturmfluten unter Wasser. Längerfristig könnte das eine Binnenmigration in die höher gelegenen Gebiete der Stadt bedeuten, was dort wiederum zu Konfliktpotential führen könnte.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>Im Jahr 2010 waren 16.000 Menschen an den Flussufern in Bangladesch <a href='http://bpb.de/gesellschaft/migration/laenderprofile/215770/klimawandel-und-binnenmigration-in-bangladesch' target='_blank'>gezwungen, ihren Wohnort dauerhaft aufzugeben</a>. Grund war eine massive Erosion der Ufergebiete. Oftmals ist das Ziel der Binnenmigration in Bangladesch die Hauptstadt Dhaka, in der sich Menschen in ohnehin schon überfüllten Slums mit miserablen hygienischen Bedingungen niederlassen.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Prenzlauer Berg</p></aside>";
+
+  var contentFlugverbindung = "<h2>Die Flugverbindung</h2>"
+                      + "<p>Flughäfen sind wichtige Voraussetzung für Tourismus und Wirtschaft. Aber auch die essentielle Versorgung mit Nahrung und Medikamenten wird so gewährleistet, wie das Beispiel der Berliner Luftbrücke zeigt.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p>Der Funktionsfähigkeit des Flughafens Tegel ist schon heute bei <a href='http://www.zeit.de/gesellschaft/zeitgeschehen/2017-06/unwetter-berlin-ueberschwemmung-feuerwehr-regen' target='_blank'>bei kleineren Naturwidrigkeiten gefährdet</a>. Das gesamte Gebiet würde zudem unter Meeresspiegelniveau liegen. Ausfälle und Einschränkungen im Betrieb würden sich so häufen und letztendlich womöglich eine Einstellung des gesamten Flugverkehrs nach sich ziehen.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>Dass Wasser die Kraft hat, Flughäfen funktionsunfähig zu machen, zeigen die Überschwemmungen in Thailand 2011. Der Flughafen Don-Mueang <a href='http://www.nationmultimedia.com/news/national/aec/30168565' target='_blank'>wurde trotz Sicherungsmaßnahmen überspült</a> und der Flugbetrieb monatelang eingestellt.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Flughafen Berlin-Tegel</p></aside>";
+
+  var contentNahrung = "<h2>Die Nahrungsmittel</h2>"
+                      + "<p>Überschwemmungen können die Versorgung mit Nahrungsmitteln gefährden, ganz gleich ob diese durch Supermärkte oder durch traditionellen Ackerbau stattfindet.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p>Zahlreiche Supermärkte in Berlin liegen unter Meeresspiegelniveau und sind somit direkt durch Sturmfluten und Überschwemmungen gefährdet. Der Westen Berlins ist besonders betroffen, auch der eng besiedelte Bezirk Neukölln.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>Als 2005 der Hurrikan Katrina New Orleans überschwemmte, kam es in der Folge zu <a href='http://www.spiegel.de/panorama/new-orleans-kriegsrecht-ausgerufen-nationalgarde-jagt-pluenderer-a-372290.html' target='_blank'>Plünderungen von nicht zerstörten Lebensmittelläden</a> und Gewalt zwischen Plünderern und Polizei. Im landwirtschaftlichen Bangladesch <a href='http://www.dw.com/de/bangladesch-strategien-gegen-die-flut/av-18070364' target='_blank'>zerstören Fluten regelmäßig fruchtbare Ackerflächen</a> und somit die Lebensgrundlage ihrer Besitzer.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Supermarkt in Berlin-Baumschulenweg</p></aside>";
+
+  var contentStrom = "<h2>Die Stromversorgung</h2>"
+                      + "<p>Wenn die Stromversorgung ausfällt, ist dies nicht nur für einzelne Haushalte problematisch. Auch der durch Elektrizität gesteuerte Verkehr stürzt ins Chaos, Funkverbindungen von Polizei, Feuerwehr und anderen Behörden fielen aus; Arztpraxen und Krankenhäuser wären in ihrer Funktionsfähigkeit eingeschränkt.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p><a href='https://www.stromnetz.berlin/de/file/Faktenblatt_Stromnetz_Berlin_83587236.pdf' target='_blank'>Rund 80 Umspannwerke</a> versorgen die Berliner Haushalte und Betriebe mit Strom. Teilweise liegen diese <a href='https://wiki.openstreetmap.org/wiki/WikiProject_Power_networks/Germany/Vattenfall_Europe' target='_blank'>in potentiell vom Wasser bedrohten Gebieten</a> und liefen somit Gefahr, auszufallen.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>Ein Stromausfall in New York - einer der technisch fortschrittlichsten Städte der Welt - führte 1977 zu Plünderungen und Gewalt in ärmeren Vierteln. Obwohl der Stromausfall nur einen Tag andauerte, sorgten verschiedene ökonomische und soziale Umstände für eine <a href='http://www.zeit.de/1977/32/im-brennpunkt-die-armut' target='_blank'>rasche Eskalation</a>, die nicht vorhergesehen wurde. Auch ein Bericht für den Bundestagsinnenausschuss sieht einen längeren Stromausfall in Deutschland als <a href='https://www.taz.de/!5123407/' target='_blank'>„nicht 'beherrschbar', allenfalls zu mildern“ an</a>.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Umspannwerk Zossener Straße</p></aside>";
+
+  var contentWasser = "<h2>Das Grundwasser</h2>"
+                      + "<p>Durch einen steigenden Meeresspiegel dringt Meer- ins Grundwasser ein und vermischt sich. Die daraus resultierende Versalzung führt dazu, dass das eigentlich als Nutz- und Trinkwasser vorgesehene Grundwasser nicht mehr nutzbar ist.</p>"
+                      + "<h4>Im überfluteten Berlin</h4>"
+                      + "<p>Die Wasserversorgung von Berlin wird durch <a href='http://www.stadtentwicklung.berlin.de/umwelt/wasser/hydrogeo/de/broschuere/3.1-Grundwassernutzung-Trinkwasser.pdf' target='_blank'>neun Wasserwerke nahe Seen und Flüssen gewährleistet</a>. Diese natürlichen Reservoirs liegen jedoch größtenteils unter dem Meeresspiegel und würden somit Opfer einer stetigen Intrusion durch Meerwasser.</p>"
+                      + "<h4>Und in echt?</h4>"
+                      + "<p>Ob moderne Trinkwasserreservoirs in Shanghai oder selbst gegrabene Brunnen in Tansanias Hauptstadt Daressalam: Salzwasserintrusion gibt es – ohne den prognostizierten Meeresspiegelanstieg – schon heute <a href='http://www.zeit.de/zeit-wissen/2014/03/trinkwasser-salzwasser-intrusion/seite-2' target='_blank'>in vielen Städten der Welt</a>. Auch in Bangladesch hat die Versalzung des Grundwassers bereits <a href='http://www.spiegel.de/wissenschaft/natur/bangladesch-wo-der-klimawandel-nach-salz-schmeckt-a-479221.html' target='_blank'>vor Jahren begonnen</a> und die Menschen gezwungen, ihre Reis- und Gemüsefelder umzusiedeln oder sich neue Ertragsmöglichkeiten zu erschließen.</p>"
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Wasserwerk Beelitzhof</p></aside>";
+
+  // Set popup: Verkehrsinfrastruktur
+  L.marker([52.570753, 13.189319], {icon: attentionIcon}).bindPopup(contentVerkehr, popupOptions).addTo(map);
+
+  // Set popup: Binnenmigration
+  L.marker([52.542339, 13.412951], {icon: attentionIcon}).bindPopup(contentBinnenmigration, popupOptions).addTo(map);
+
+  // Set popup: Flugverbindung
+  L.marker([52.560459, 13.291946], {icon: attentionIcon}).bindPopup(contentFlugverbindung, popupOptions).addTo(map);
+
+  // Set popup: Nahrungsmittel
+  L.marker([52.464037, 13.487413], {icon: attentionIcon}).bindPopup(contentNahrung, popupOptions).addTo(map);
+
+  // Set popup: Stromversorgung
+  L.marker([52.49417, 13.39485], {icon: attentionIcon}).bindPopup(contentStrom, popupOptions).addTo(map);
+
+  // Set popup: Grundwasser
+  L.marker([52.430034, 13.185062], {icon: attentionIcon}).bindPopup(contentWasser, popupOptions).addTo(map);
+
+</script>

@@ -1,0 +1,8 @@
+encoding: utf-8
+highlighter: rouge
+baseurl: /iub
+include: ["_pages"]
+exclude: ['README.md']
+permalink: pretty
+sass:
+  sass_dir: _scss

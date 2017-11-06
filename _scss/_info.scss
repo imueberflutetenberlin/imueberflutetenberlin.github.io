@@ -1,0 +1,21 @@
+.info-container {
+  width: 100%;
+}
+
+.info {
+  h4 {
+    margin-bottom: .5rem;
+  }
+  a {
+    font-style: italic;
+    border-bottom: .1rem solid lighten($primaryColor, 25%);
+    color: lighten($primaryColor, 25%); }
+  a:hover {
+    color: lighten($primaryColor, 10%); }
+
+    ul {
+      padding: 0;
+      margin-top: 0;
+      list-style: none;
+    }
+}

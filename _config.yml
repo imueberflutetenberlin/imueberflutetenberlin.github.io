@@ -1,8 +1,8 @@
 encoding: utf-8
 highlighter: rouge
-baseurl: /iub
+baseurl: /imueberflutetenberlin.github.io
 include: ["_pages"]
-exclude: ['README.md']
+exclude: ['README.md', '.sass-cache']
 permalink: pretty
 sass:
   sass_dir: _scss

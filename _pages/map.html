@@ -10,60 +10,64 @@ permalink: "/map/"
 <div id="map"></div>
 
 <!-- Include geoJSON data -->
-<script src="{{site.baseurl}}/data/berlin_altitudes_-8_-6.js"></script>
-<script src="{{site.baseurl}}/data/berlin_altitudes_-6_-4.js"></script>
-<script src="{{site.baseurl}}/data/berlin_altitudes_-4_0.js"></script>
+<script src="{{site.baseurl}}/data/flooded-berlin_a.js"></script>
+<script src="{{site.baseurl}}/data/flooded-berlin_b.js"></script>
+<script src="{{site.baseurl}}/data/flooded-berlin_c.js"></script>
 
 <!-- Map script -->
 <script type="text/javascript">
 
-  // Initialise map
-  var map = L.map('map', {zoomControl: false}).setView([52.520007, 13.404953999999975], 12);
-
-  // Initialise zoom controls
-  L.control.zoom({position:'bottomleft'}).addTo(map);
-
-  // Fetch area tiles
-  L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+  // Prepare area tiles
+  var basemap = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
     maxZoom: 18, attribution: '&copy; <a href="https://carto.com/attribution">CARTO</a>'
-  }).addTo(map);
+  });
 
-  /* Overlays of flooded areas
-  ------------------------------------------------------------------------------------ */
-  // Styles
-  var floodedStyle01 = {
-    "color": "rgb(100, 100, 154)",
-    "strokeWidth": 1,
-    "opacity": 0.8,
-    "fillOpacity": 0.8
+  // Define overlays
+  var floodedA = L.geoJSON(floodedAreaA, {
+    style: {
+      "color": "rgb(100, 100, 154)",
+      "stroke": 0,
+      "fillOpacity": "0.3"
+    }
+  })
+
+  var floodedB = L.geoJSON(floodedAreaB, {
+    style: {
+      "color": "rgb(40, 40, 94)",
+      "stroke": 0,
+      "fillOpacity": "0.5"
+    }
+  })
+
+  var floodedC = L.geoJSON(floodedAreaC, {
+    style: {
+      "color": "rgb(20, 20, 47)",
+      "stroke": 0,
+      "fillOpacity": "0.8"
+    }
+  })
+
+  var floodedAreas = L.layerGroup([floodedA, floodedB, floodedC]);
+
+  // Initialise map
+  var map = L.map('map', {
+    zoomControl: false,
+    layers: [basemap, floodedAreas]})
+    .setView([52.520007, 13.404953999999975], 12);
+
+  // Initialise controls
+  var baseMaps = {
+    "Basemap": basemap
   };
 
-  var floodedStyle03 = {
-    "color": "rgb(40, 40, 94)",
-    "strokeWidth": 1,
-    "opacity": 0.8,
-    "fillOpacity": 0.8
+  var overlayMaps = {
+    "< 0": floodedA,
+    "< -2": floodedB,
+    "< -4": floodedC
   };
 
-  var floodedStyle04 = {
-    "color": "rgb(20, 20, 47)",
-    "strokeWidth": 1,
-    "opacity": 0.8,
-    "fillOpacity": 0.8
-  };
-
-  // Add overlays
-  var test01 = L.geoJSON(berlinAltitudes01, {
-    style: floodedStyle01
-  }).addTo(map);
-
-  var test03 = L.geoJSON(berlinAltitudes03, {
-    style: floodedStyle03
-  }).addTo(map);
-
-  var test04 = L.geoJSON(berlinAltitudes04, {
-    style: floodedStyle04
-  }).addTo(map);
+  L.control.zoom({position:'bottomleft'}).addTo(map);
+  L.control.layers(baseMaps, overlayMaps).addTo(map);
 
   /* Popups
   ------------------------------------------------------------------------------------ */

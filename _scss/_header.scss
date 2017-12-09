@@ -29,12 +29,12 @@ header {
     nav {
       display: block;
       position: fixed;
-      right: 1rem;
+      left: 1rem;
     }
   }
 
   .nav-map {
-    #button-map {
+    #button-map, #button-info {
       display: none;
     }
   }

@@ -1,0 +1,47 @@
+header {
+  position: fixed;
+  top: 1rem;
+  z-index: 2;
+
+  .logo-container {
+    position: fixed;
+    left: 1rem;
+
+    h2 {
+      font-weight: 700;
+      line-height: inherit;
+
+      a {
+        color: inherit;
+      }
+
+    .logo {
+      width: auto;
+      }
+    }
+  }
+
+  nav {
+    display: none;
+  }
+
+  @media (min-width: 750px) {
+    nav {
+      display: block;
+      position: fixed;
+      left: 1rem;
+    }
+  }
+
+  .nav-map {
+    #button-map, #button-info {
+      display: none;
+    }
+  }
+
+  .nav-info {
+    #button-info {
+      display: none;
+    }
+  }
+}

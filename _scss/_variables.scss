@@ -1,0 +1,14 @@
+$baseColor: rgb(80, 80, 80);
+$brightColor: rgb(230, 230, 230);
+$primaryColor: rgb(40, 40, 94);
+$secondaryColor: rgb(235,85,0);
+
+$primaryGradient: linear-gradient(90deg, $brightColor, $primaryColor);
+
+$fontFamily: 'Lato', Arial, sans-serif;
+$fontSize: 14px;
+
+$borderBottom: .1rem solid lighten($primaryColor, 25%);
+$boxShadow: 2px 4px 12px rgba(0,0,0,0.2);
+
+$marginBottom: 2rem;

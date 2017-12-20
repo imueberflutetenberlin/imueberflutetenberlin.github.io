@@ -1,0 +1,20 @@
+.leaflet-control-layers {
+  border-radius: 0;
+}
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  width: auto;
+  height: 36px;
+  background-position: 6px 50%;
+}
+
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+    border: none;
+    background-clip: padding-box;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-control-layers-selector {
+  width: auto;
+  height: auto;
+}

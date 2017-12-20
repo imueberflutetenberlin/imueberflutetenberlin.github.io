@@ -57,13 +57,13 @@ permalink: "/map/"
 
   // Initialise controls
   var baseMaps = {
-    "Basemap": basemap
+    "Überflutung": basemap
   };
 
   var overlayMaps = {
     "< 0": floodedA,
-    "< -2": floodedB,
-    "< -4": floodedC
+    "< –2": floodedB,
+    "< –4": floodedC
   };
 
   L.control.zoom({position:'bottomleft'}).addTo(map);
@@ -120,10 +120,10 @@ permalink: "/map/"
   var contentStrom = "<h2>Die Stromversorgung</h2>"
                       + "<p>Wenn die Stromversorgung ausfällt, ist dies nicht nur für einzelne Haushalte problematisch. Auch der durch Elektrizität gesteuerte Verkehr stürzt ins Chaos, Funkverbindungen von Polizei, Feuerwehr und anderen Behörden fielen aus; Arztpraxen und Krankenhäuser wären in ihrer Funktionsfähigkeit eingeschränkt.</p>"
                       + "<h4>Im überfluteten Berlin</h4>"
-                      + "<p><a href='https://www.stromnetz.berlin/de/file/Faktenblatt_Stromnetz_Berlin_83587236.pdf' target='_blank'>Rund 80 Umspannwerke</a> versorgen die Berliner Haushalte und Betriebe mit Strom. Teilweise liegen diese <a href='https://wiki.openstreetmap.org/wiki/WikiProject_Power_networks/Germany/Vattenfall_Europe' target='_blank'>in potentiell vom Wasser bedrohten Gebieten</a> und liefen somit Gefahr, auszufallen.</p>"
+                      + "<p><a href='https://www.stromnetz.berlin/de/file/Faktenblatt_Stromnetz_Berlin_83587236.pdf' target='_blank'>Rund 80 Umspannwerke</a> versorgen die Berliner Haushalte und Betriebe mit Strom. Das Umspannwerk Mitte liegt besispielsweise <a href='https://de.wikipedia.org/wiki/380-kV-Transversale_Berlin#Lage' target='_blank'>in einem potentiell vom Wasser bedrohten Gebiet</a> und liefe somit Gefahr, auszufallen.</p>"
                       + "<h4>Und in echt?</h4>"
                       + "<p>Ein Stromausfall in New York - einer der technisch fortschrittlichsten Städte der Welt - führte 1977 zu Plünderungen und Gewalt in ärmeren Vierteln. Obwohl der Stromausfall nur einen Tag andauerte, sorgten verschiedene ökonomische und soziale Umstände für eine <a href='http://www.zeit.de/1977/32/im-brennpunkt-die-armut' target='_blank'>rasche Eskalation</a>, die nicht vorhergesehen wurde. Auch ein Bericht für den Bundestagsinnenausschuss sieht einen längeren Stromausfall in Deutschland als <a href='https://www.taz.de/!5123407/' target='_blank'>„nicht 'beherrschbar', allenfalls zu mildern“ an</a>.</p>"
-                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Umspannwerk Zossener Straße</p></aside>";
+                      + "<aside class='location-info'><img class='location-icon' src='{{site.baseurl}}/img/location_icon.svg' alt='Location Icon'><p>Umspannwerk Mitte</p></aside>";
 
   var contentWasser = "<h2>Das Grundwasser</h2>"
                       + "<p>Durch einen steigenden Meeresspiegel dringt Meer- ins Grundwasser ein und vermischt sich. Die daraus resultierende Versalzung führt dazu, dass das eigentlich als Nutz- und Trinkwasser vorgesehene Grundwasser nicht mehr nutzbar ist.</p>"
@@ -146,7 +146,7 @@ permalink: "/map/"
   L.marker([52.464037, 13.487413], {icon: attentionIcon}).bindPopup(contentNahrung, popupOptions).addTo(map);
 
   // Set popup: Stromversorgung
-  L.marker([52.49417, 13.39485], {icon: attentionIcon}).bindPopup(contentStrom, popupOptions).addTo(map);
+  L.marker([52.503363, 13.368518], {icon: attentionIcon}).bindPopup(contentStrom, popupOptions).addTo(map);
 
   // Set popup: Grundwasser
   L.marker([52.430034, 13.185062], {icon: attentionIcon}).bindPopup(contentWasser, popupOptions).addTo(map);
